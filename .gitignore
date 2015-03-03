@@ -1,0 +1,7 @@
+thirdparty/*
+!thirdparty/select2/
+!thirdparty/typeahead.js/
+thirdparty/typeahead.js/*
+!thirdparty/typeahead.js/dist/
+thirdparty/typeahead.js/dist/*
+!thirdparty/typeahead.js/dist/typeahead.bundle.js

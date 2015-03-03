@@ -1,0 +1,25 @@
+.htmleditor {
+	&.email-friendly {
+		.mceListBox.mce_styleselect {
+			display:none;
+		}
+	}
+
+	&.limited,
+	&.limited-with-links,
+	&.limited-with-media {
+		.mceListBox.mce_formatselect,
+		.mceToolbarRow2,
+		.mceToolbarRow3,
+		.mce_blockquote,
+		.mce_cite,
+		.mce_abbr,
+		.mce_justifyleft,
+		.mce_justifycenter,
+		.mce_justifyright,
+		.mce_justifyfull,
+		.mceSeparator {
+			display:none;
+		}
+	}
+}

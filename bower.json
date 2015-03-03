@@ -1,0 +1,10 @@
+{
+    "name"           : "milkyway-multimedia/ss-mwm-formfields",
+    "private"        : true,
+    "dependencies": {
+        "nouislider"        : "~7",
+        "moment"        : "~2",
+        "moment-timezone": "~0",
+        "bootstrap"     : "~3"
+    }
+}
