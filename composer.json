@@ -15,7 +15,7 @@
         "silverstripe/framework": "~3.1"
     },
     "suggest":     {
-        "milkyway-multimedia/ss-mwm-zen-forms": "Additional form field methods and extensions to make forms work with bootstrap and ajax, as well as validation constraints"
+        "milkyway-multimedia/ss-zen-forms": "Additional form field methods and extensions to make forms work with bootstrap and ajax, as well as validation constraints"
     },
     "replace":     {
         "milkyway/silverstripe-hasonecompositefield": "self.version",
