@@ -1,4 +1,7 @@
 thirdparty/*
+!thirdparty/bootstrap
+!thirdparty/moment
+!thirdparty/nouislider
 !thirdparty/select2/
 !thirdparty/typeahead.js/
 thirdparty/typeahead.js/*
