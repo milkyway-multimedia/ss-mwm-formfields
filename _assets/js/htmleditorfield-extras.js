@@ -213,15 +213,23 @@
                 if (!emailFriendly && (linkType === 'internal' || linkType === 'external') && this.find('.field[id$="TargetModal"]').length) {
                     this.find('.field[id$="TargetModal"]').show();
                 }
+
+                if(linkType === 'phone') {
+                   this.find('.field#TargetBlank').hide();
+                   this.find('.field#phone').show();
+                }
             },
             getLinkAttributes:  function (e) {
                 var att = this._super(),
                     $utm_source = this.find(':input[name=utm_source]');
 
+                if(this.find(':input[name=LinkType]:checked').val() === 'phone' && att.hasOwnProperty('href'))
+                    att.href = 'tel:' + this.find(':input[name=phone]').val();
+
                 if (this.find(':input[name=TargetModal]').is(':checked'))
                     att['data-toggle'] = 'modal';
 
-                if (att.hasOwnProperty('href') && att.href.indexOf('mailto:') !== 0 && $utm_source.length && $utm_source.val()) {
+                if (att.hasOwnProperty('href') && att.href.indexOf('mailto:') !== 0 && att.href.indexOf('tel:') !== 0 && $utm_source.length && $utm_source.val()) {
                     var utm_medium = this.find(':input[name=utm_medium]').val(),
                         utm_term = this.find(':input[name=utm_term]').val(),
                         utm_content = this.find(':input[name=utm_content]').val(),
@@ -255,6 +263,13 @@
             getCurrentLink:     function () {
                 var selected = this._super(),
                     gat = this.googleLinkTracking();
+
+                if(selected.hasOwnProperty('LinkType') && selected.LinkType == 'external' && selected.hasOwnProperty('external') && selected.external.match(/^tel:(.*)$/)) {
+                    selected.LinkType = 'phone';
+                    selected.phone = RegExp.$1;
+                    delete selected.external;
+                    delete selected.TargetBlank;
+                }
 
                 if (selected !== null && !gat)
                     return selected;

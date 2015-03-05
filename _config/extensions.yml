@@ -2,8 +2,10 @@
 Name: mwm-formfields--extensions
 ---
 LeftAndMain:
+  extra_requirements_css:
+    - 'mwm-formfields/css/htmleditorfield-extras.css'
   extra_requirements_javascript:
     - 'mwm-formfields/js/htmleditorfield-extras.js'
-HTMLEditorField_Toolbar:
+HtmlEditorField_Toolbar:
   extensions:
     - 'Milkyway\SS\FormFields\Extensions\HTMLEditorField'

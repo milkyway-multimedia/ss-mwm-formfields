@@ -9,9 +9,16 @@
 
 namespace Milkyway\SS\FormFields\Extensions;
 
-
 class HTMLEditorField extends \Extension {
 	public function updateLinkForm($form) {
+		if($typesField = $form->Fields()->dataFieldByName('LinkType')) {
+			$types = $typesField->Source;
+			$types['phone'] = _t('HtmlEditorField.PHONE', 'Phone number');
+			$typesField->Source = $types;
+
+			$form->Fields()->insertAfter($fields[] = \TextField::create('phone', _t('HtmlEditorField.PHONE', 'Phone number')), 'email');
+		}
+
 		$form->Fields()->insertAfter($fields[] = \CompositeField::create(
 			\FlyoutLabelField::create('Step-Google-URLTracking', _t('HtmlEditorField.GOOGLE-LINK_TRACKING', 'Google Link Tracking'), '+'),
 			$fields[] = \TextField::create('utm_source', _t('HtmlEditorField.GOOGLE-CAMPAIGN_SOURCE', 'Campaign Source'))
