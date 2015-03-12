@@ -35,6 +35,9 @@ class HasOneCompositeField extends CompositeField {
 	/** @var bool  */
 	protected $allowEmpty = false;
 
+	/** @var Callable  */
+	protected $fieldsCallback;
+
     /** @var ArrayAccess|array */
 	private $originalFields;
 
@@ -138,6 +141,22 @@ class HasOneCompositeField extends CompositeField {
      */
     public function getOverrideFromParent() {
 		return $this->overrideFromParent;
+	}
+
+	/**
+	 * @param Callable $callback
+	 * @return $this
+	 */
+	public function setFieldsCallback($callback = null) {
+		$this->fieldsCallback = $callback;
+		return $this;
+	}
+
+	/**
+	 * @return Callable
+	 */
+	public function getFieldsCallback() {
+		return $this->fieldsCallback;
 	}
 
     /**
@@ -330,10 +349,12 @@ class HasOneCompositeField extends CompositeField {
         else
             $fields = $record->getFrontEndFields();
 
-        if($fields)
-            return $fields;
+        $fields = $fields ?: \FieldList::create();
 
-        return FieldList::create();
+	    if($this->fieldsCallback && is_callable($this->fieldsCallback))
+		    call_user_func_array($this->fieldsCallback, [$fields, $record, $this]);
+
+	    return $fields;
     }
 
     protected function formFromFieldList($fields, $value = []) {
