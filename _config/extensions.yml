@@ -4,6 +4,7 @@ Name: mwm-formfields--extensions
 LeftAndMain:
   extra_requirements_css:
     - 'mwm-formfields/css/htmleditorfield-extras.css'
+    - 'mwm-formfields/css/form-columns.css'
   extra_requirements_javascript:
     - 'mwm-formfields/js/htmleditorfield-extras.js'
 HtmlEditorField_Toolbar:

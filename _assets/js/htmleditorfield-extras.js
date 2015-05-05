@@ -27,6 +27,16 @@
                     config.theme_advanced_buttons1 = config.theme_advanced_buttons1 + ',sslink,unlink';
                 }
 
+                if (self.hasClass('limited-with-source')) {
+                    if(this.checkIfButtonExistsInExtendedConfig('code', config) && !this.checkIfButtonExistsInLimitedConfig('code', config)) {
+                        config.theme_advanced_buttons1 = config.theme_advanced_buttons1 + ',code';
+                    }
+
+                    if(this.checkIfButtonExistsInExtendedConfig('fullscreen', config) && !this.checkIfButtonExistsInLimitedConfig('fullscreen', config)) {
+                        config.theme_advanced_buttons1 = config.theme_advanced_buttons1 + ',fullscreen';
+                    }
+                }
+
                 if (self.hasClass('limited') && this.checkIfButtonExistsInExtendedConfig('removeformat', config) && !this.checkIfButtonExistsInLimitedConfig('removeformat', config)) {
                     config.theme_advanced_buttons1 = config.theme_advanced_buttons1 + ',removeformat';
                 }
