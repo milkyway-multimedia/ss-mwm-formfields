@@ -321,10 +321,13 @@ class HasOneCompositeField extends CompositeField {
 			if($field->isComposite())
 				$this->unprependName($field->FieldList());
 
-			$name = $field->OriginalName ?: $field->Name;
+			$name = $field->Name;
 
 			if(strpos($name, $this->name . '[') === 0) {
-				$field->setName(trim(str_replace($this->name . '[', '', $name), ']'));
+				if($field->OriginalName)
+					$field->setName($field->OriginalName);
+				else
+					$field->setName(trim(str_replace($this->name . '[', '', $name), ']'));
 			}
 
 			$field->PrependedName = false;
