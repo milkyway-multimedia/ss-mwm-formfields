@@ -274,7 +274,7 @@
                 var selected = this._super(),
                     gat = this.googleLinkTracking();
 
-                if(selected.hasOwnProperty('LinkType') && selected.LinkType == 'external' && selected.hasOwnProperty('external') && selected.external.match(/^tel:(.*)$/)) {
+                if(selected && selected.hasOwnProperty('LinkType') && selected.LinkType == 'external' && selected.hasOwnProperty('external') && selected.external.match(/^tel:(.*)$/)) {
                     selected.LinkType = 'phone';
                     selected.phone = RegExp.$1;
                     delete selected.external;
