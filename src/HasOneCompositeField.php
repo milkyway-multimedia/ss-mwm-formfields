@@ -13,8 +13,6 @@
  * @author Mellisa Hankins <mell@milkywaymultimedia.com.au>
  */
 
-use Milkyway\SS\Director as Director;
-
 class HasOneCompositeField extends CompositeField {
     private static $allowed_actions = [
         'restart',
@@ -204,9 +202,15 @@ class HasOneCompositeField extends CompositeField {
 		}
 
 		$fields = $this->FieldList(false);
+	    $form = $this->formFromFieldList($fields, $this->value);
 
 		if($record) {
-			$form = $this->formFromFieldList($fields, $this->value);
+			$formDataFields = $form->Fields()->dataFields();
+
+			foreach($formDataFields as $dataField) {
+				if(($dataField instanceof $this) && $dataField !== $this)
+					$dataField->saveInto($record);
+			}
 
 			if(!$this->allowEmpty && !$record->exists() && !count(array_filter($form->Data)))
 				return;
@@ -248,7 +252,6 @@ class HasOneCompositeField extends CompositeField {
 			$parent->$fieldName = $record->ID;
 		}
 		elseif($parent) {
-			$form = $this->formFromFieldList($fields, $this->value);
 			$data = $form->Data;
 			unset($form);
 
