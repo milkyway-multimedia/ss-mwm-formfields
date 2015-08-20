@@ -6,7 +6,7 @@ class TabbedSelectionGroup extends SelectionGroup {
 	public $showAsDropdown = false;
 
 	public function getLabelTab() {
-		return $this->labelTab;
+		return $this->labelTab === true ? $this->title : $this->labelTab;
 	}
 
 	public function setLabelTab($labelTab) {
@@ -38,7 +38,7 @@ class TabbedSelectionGroup extends SelectionGroup {
 		if (!$this->config()->exclude_js) {
 			if(!$this->config()->exclude_js_libraries) {
 				Requirements::javascript(THIRDPARTY_DIR . '/jquery/jquery.js');
-				Requirements::javascript(SS_MWM_FORMFIELDS_DIR . '/thirdparty/bootstrap/js/tab.js');
+				Requirements::javascript(SS_MWM_FORMFIELDS_DIR . '/thirdparty/js/tab.js');
 			}
 
 			Requirements::javascript(SS_MWM_FORMFIELDS_DIR . '/js/tabbedselectiongroup.init.js');

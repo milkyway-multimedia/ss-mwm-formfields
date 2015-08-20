@@ -168,16 +168,16 @@ class RangeSliderField extends FormField
     public function Field($properties = [])
     {
         if (!$this->config()->exclude_js) {
-            Requirements::javascript(SS_MWM_FORMFIELDS_DIR . '/thirdparty/moment/min/moment.min.js');
+            Requirements::javascript(SS_MWM_FORMFIELDS_DIR . '/thirdparty/js/moment.js');
             Requirements::javascript(THIRDPARTY_DIR . '/jquery/jquery.js');
             Requirements::javascript(THIRDPARTY_DIR . '/jquery-entwine/dist/jquery.entwine-dist.js');
-            Requirements::javascript(SS_MWM_FORMFIELDS_DIR . '/thirdparty/nouislider/distribute/jquery.nouislider.all.js');
+            Requirements::javascript(SS_MWM_FORMFIELDS_DIR . '/thirdparty/js/jquery.nouislider.all.js');
             Requirements::javascript(SS_MWM_FORMFIELDS_DIR . '/js/rangeslider.init.js');
         }
 
         if (!$this->config()->exclude_css) {
-            Requirements::css(SS_MWM_FORMFIELDS_DIR . '/thirdparty/nouislider/distribute/jquery.nouislider.min.css');
-            Requirements::css(SS_MWM_FORMFIELDS_DIR . '/thirdparty/nouislider/distribute/jquery.nouislider.pips.min.css');
+            Requirements::css(SS_MWM_FORMFIELDS_DIR . '/thirdparty/css/jquery.nouislider.css');
+            Requirements::css(SS_MWM_FORMFIELDS_DIR . '/thirdparty/css/jquery.nouislider.pips.css');
             Requirements::css(SS_MWM_FORMFIELDS_DIR . '/css/rangeslider.css');
         }
 

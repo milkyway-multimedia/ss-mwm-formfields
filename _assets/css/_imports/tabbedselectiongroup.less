@@ -1,0 +1,125 @@
+@nav-tabs-border-color: #ced7dc;
+
+.tabbedselectiongroup {
+	margin-bottom:10px;
+}
+
+.tabbedselectiongroup-tabs {
+	.nav-tabs();
+	.clearfix();
+}
+
+.tabbedselectiongroup-options-holder {
+	position: relative;
+}
+
+.tabbedselectiongroup-anchor,
+.tabbedselectiongroup-tabs-label {
+	&:extend(.nav-tabs > li > a);
+
+	display:block;
+	padding:5px 10px;
+	font-weight:bold;
+	line-height:24px;
+	text-shadow: fade(black, 10%) 0 1px 1px;
+	color: #5e5e5e;
+}
+
+.tabbedselectiongroup-tabs-label {
+	padding-left:0;
+
+	.cms & {
+		width: 176px;
+		margin-right:0;
+		padding-right:0;
+	}
+
+	.cms .gridfield & {
+		width: auto;
+		margin-right:@padding-small-horizontal;
+	}
+}
+
+.tabbedselectiongroup-anchor {
+	cursor:pointer !important;
+	background-color: fade(black, 5%);
+	border-color:@nav-tabs-border-color;
+
+	&:hover {
+		&:extend(.nav-tabs > li.active > a:hover);
+		background-color: fade(black, 5%);
+		border-bottom-color: fade(white, 5%);
+
+		span {
+			text-decoration: underline;
+		}
+	}
+
+	.active > &,
+	.active > &:hover,
+	.active > &:focus {
+		&:extend(.nav-tabs > li.active > a:hover);
+		background-color:@nav-tabs-border-color;
+		border-color:@nav-tabs-border-color;
+	}
+
+	.tabbedselectiongroup-options-holder.active > & {
+		background-color:#ffffff;
+	}
+}
+
+.tabbedselectiongroup-tabs--panes {
+	.tab-content();
+	.clearfix();
+	padding-bottom:5px;
+	border-bottom: 1px solid #d0d3d5;
+	-webkit-box-shadow: 0 1px 0 rgba(245, 245, 245, 0.8);
+	-moz-box-shadow: 0 1px 0 rgba(245, 245, 245, 0.8);
+	-o-box-shadow: 0 1px 0 rgba(245, 245, 245, 0.8);
+	box-shadow: 0 1px 0 rgba(245, 245, 245, 0.8);
+
+	td >.tabbedselectiongroup > & {
+		border-bottom:0;
+	}
+}
+
+.tabbedselectiongroup-tabs--pane {
+	&:extend(.tab-content > .tab-pane);
+}
+
+.tabbedselectiongroup-options {
+	.dropdown-menu();
+	margin-top:-1px;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+
+	&.open {
+		display: block;
+	}
+
+	label {
+		&:extend(.dropdown-menu > li > a);
+		font-size:12px;
+		padding-left:2px;
+		padding-right:2px;
+	}
+
+	label {
+		cursor: pointer;
+
+		&:hover {
+			&:extend(.dropdown-menu > li > a:hover all);
+		}
+	}
+}
+
+.tabbedselectiongroup-anchor-caret {
+	width: 12px;
+	height: 12px;
+	display:inline-block;
+	background:transparent url('../../framework/images/bullet_arrow_down.png') center center no-repeat;
+
+	.dropdown-open & {
+		background-image: url('../../framework/images/bullet_arrow_up.png');
+	}
+}

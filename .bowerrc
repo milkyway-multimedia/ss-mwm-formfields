@@ -1,3 +1,5 @@
 {
-	"directory" : "thirdparty"
+  "analytics"   : false,
+  "interactive" : false,
+  "directory"   : "../bower_components"
 }

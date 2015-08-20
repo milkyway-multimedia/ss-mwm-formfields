@@ -1,37 +1,27 @@
 {
-    "css": {
-        "all":   [
-            "_assets/css/**/*",
-            "!_assets/css/imports/**/*"
-        ],
-        "src":   [
-            "_assets/css/**/*",
-            "!_assets/css/imports/**/*",
-            "!_assets/css/imports",
-            "!_assets/css/old/**/*",
-            "!_assets/css/old"
-        ],
-        "watch": [
-            "_assets/css/**/*.less",
-            "_assets/css/**/*.scss"
-        ],
-        "dest":  "css/"
+  "css" : [
+    {
+      "dest": "css/"
     },
-    "js":  {
-        "all":    [
-            "_assets/js/**/*",
-            "!_assets/js/imports/**/*"
-        ],
-        "src":    [
-            "_assets/js/**/*",
-            "!_assets/js/imports/**/*",
-            "!_assets/js/imports",
-            "!_assets/js/old/**/*",
-            "!_assets/js/old"
-        ],
-        "watch":  [
-            "_assets/js/**/*"
-        ],
-        "dest":   "js/"
+    {
+      "src": [
+        "bower_components/nouislider/src/jquery.nouislider.css",
+        "bower_components/nouislider/src/jquery.nouislider.pips.css"
+      ],
+      "dest": "thirdparty/css/"
     }
+  ],
+  "js"  : [
+    {
+      "dest": "js/"
+    },
+    {
+      "src": [
+        "bower_components/moment/moment.js",
+        "bower_components/nouislider/distribute/jquery.nouislider.all.js",
+        "bower_components/bootstrap/js/tab.js"
+      ],
+      "dest": "thirdparty/js/"
+    }
+  ]
 }
