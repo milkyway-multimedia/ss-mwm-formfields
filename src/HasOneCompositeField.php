@@ -402,10 +402,19 @@ class HasOneCompositeField extends CompositeField
                     $field->OriginalName = $field->Name;
                 }
 
+                if (($field instanceof Tab || $field instanceof TabSet) && !$field->OriginalId) {
+                    $field->OriginalId = $field->id();
+                }
+
                 if ($field->OriginalName != $this->name . '[]' && strpos($this->name . '[' . $field->OriginalName . ']',
                         '[]]') !== -1
                 ) {
                     $field->setName($this->name . '[' . $field->OriginalName . ']');
+
+                    // Special setting for tabs since they don't use name for IDs
+                    if($field instanceof Tab || $field instanceof TabSet) {
+                        $field->setID($this->name . '-' . $field->OriginalId);
+                    }
                 }
             }
 
@@ -444,6 +453,9 @@ class HasOneCompositeField extends CompositeField
             $name = $field->Name;
 
             if (strpos($name, $this->name . '[') === 0) {
+                if($field->OriginalId) {
+                    $field->setID($field->OriginalName);
+                }
                 if ($field->OriginalName) {
                     $field->setName($field->OriginalName);
                 } else {
