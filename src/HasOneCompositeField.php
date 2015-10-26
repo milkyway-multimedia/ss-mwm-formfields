@@ -12,13 +12,12 @@
  * @package milkyway/silverstripe-hasonecompositefield
  * @author Mellisa Hankins <mell@milkywaymultimedia.com.au>
  */
-
 class HasOneCompositeField extends CompositeField
 {
     private static $allowed_actions = [
         'delete',
         'detach',
-//        'add-existing-search',
+        //        'add-existing-search',
     ];
 
     /** @var DataObjectInterface */
@@ -38,9 +37,9 @@ class HasOneCompositeField extends CompositeField
 
     /** @var array */
     protected $configuration = [
-        'allowDelete' => false,
-        'allowDetach' => false,
-        'allowSelector' => false,
+        'allowDelete'     => false,
+        'allowDetach'     => false,
+        'allowSelector'   => false,
         'actionsTemplate' => 'HasOneCompositeField_actions',
     ];
 
@@ -55,7 +54,7 @@ class HasOneCompositeField extends CompositeField
      * @param DataObjectInterface $record
      * @param FieldList $fields
      */
-    public function __construct($name, $record = null, FieldList $fields = null)
+    public function __construct($name, $record = null, ArrayList $fields = null)
     {
         $this->name = $name;
         $this->record = $record;
@@ -77,7 +76,7 @@ class HasOneCompositeField extends CompositeField
     public function detach()
     {
         if ($this->form && $this->form->Record && $this->form->Record->canEdit()) {
-            $this->form->Record->{$this->name.'ID'} = null;
+            $this->form->Record->{$this->name . 'ID'} = null;
             $this->form->Record->write();
         }
     }
@@ -222,12 +221,13 @@ class HasOneCompositeField extends CompositeField
         return $this->configuration;
     }
 
-    public function allowed($key) {
-        if(in_array(strtolower($key), ['detach', 'delete']) && (!$this->Record || !$this->Record->exists())) {
+    public function allowed($key)
+    {
+        if (in_array(strtolower($key), ['detach', 'delete']) && (!$this->Record || !$this->Record->exists())) {
             return false;
         }
 
-        return isset($this->configuration['allow'.ucfirst($key)]) && $this->configuration['allow'.ucfirst($key)];
+        return isset($this->configuration['allow' . ucfirst($key)]) && $this->configuration['allow' . ucfirst($key)];
     }
 
     /**
@@ -412,7 +412,7 @@ class HasOneCompositeField extends CompositeField
                     $field->setName($this->name . '[' . $field->OriginalName . ']');
 
                     // Special setting for tabs since they don't use name for IDs
-                    if($field instanceof Tab || $field instanceof TabSet) {
+                    if ($field instanceof Tab || $field instanceof TabSet) {
                         $field->setID($this->name . '-' . $field->OriginalId);
                     }
                 }
@@ -423,23 +423,26 @@ class HasOneCompositeField extends CompositeField
         }
     }
 
-    public function Actions() {
+    public function Actions()
+    {
         return $this->renderWith([$this->configuration['actionsTemplate'], 'HasOneCompositeField_actions']);
     }
 
-    public function getSearchList() {
+    public function getSearchList()
+    {
         return isset($this->configuration['dataList']) ? $this->configuration['dataList'] : null;
     }
 
-    public function getList() {
-       if(($record = $this->record) || ($record = $this->recordFromForm())) {
-           return $this->record->get()->filter(['ID' => $record->ID]);
-       }
+    public function getList()
+    {
+        if (($record = $this->record) || ($record = $this->recordFromForm())) {
+            return $this->record->get()->filter(['ID' => $record->ID]);
+        }
 
         throw new LogicException('Could not find record to match up to');
     }
 
-    protected function unprependName(FieldList $fields)
+    protected function unprependName(ArrayList $fields)
     {
         foreach ($fields as $field) {
             if (!$field || $field->UnPrependedName) {
@@ -453,7 +456,7 @@ class HasOneCompositeField extends CompositeField
             $name = $field->Name;
 
             if (strpos($name, $this->name . '[') === 0) {
-                if($field->OriginalId) {
+                if ($field->OriginalId) {
                     $field->setID($field->OriginalName);
                 }
                 if ($field->OriginalName) {
@@ -513,7 +516,9 @@ class HasOneCompositeField extends CompositeField
     {
         $form = new Form(singleton('Controller'), $this->name . '-form', $fields, singleton('FieldList'));
         $form->disableSecurityToken();
-        $form->loadDataFrom($value);
+        if ($value) {
+            $form->loadDataFrom($value);
+        }
         return $form;
     }
 
