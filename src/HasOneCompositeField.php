@@ -442,6 +442,15 @@ class HasOneCompositeField extends CompositeField
         throw new LogicException('Could not find record to match up to');
     }
 
+    public function setName($name)
+    {
+        $this->unprependName($this->getChildren());
+        $return = parent::setName($name);
+        $this->prependName($this->getChildren());
+
+        return $return;
+    }
+
     protected function unprependName(ArrayList $fields)
     {
         foreach ($fields as $field) {

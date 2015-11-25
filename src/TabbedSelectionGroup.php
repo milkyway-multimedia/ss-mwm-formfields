@@ -5,8 +5,10 @@ class TabbedSelectionGroup extends SelectionGroup {
 
 	public $showAsDropdown = false;
 
+	public $vertical = false;
+
 	public function getLabelTab() {
-		return $this->labelTab === true ? $this->title : $this->labelTab;
+		return $this->labelTab === true || $this->title ? $this->title : $this->labelTab;
 	}
 
 	public function setLabelTab($labelTab) {
@@ -23,6 +25,23 @@ class TabbedSelectionGroup extends SelectionGroup {
 		return $this;
 	}
 
+	public function setShowAsDropdown($flag = true) {
+		return $this->showAsDropdown($flag);
+	}
+
+	public function getIsVertical() {
+		return $this->vertical;
+	}
+
+	public function vertical($flag = true) {
+		$this->vertical = $flag;
+		return $this;
+	}
+
+	public function setVertical($flag = true) {
+		return $this->vertical($flag);
+	}
+
 	public function FieldList() {
 		$list = parent::FieldList();
 
@@ -34,7 +53,7 @@ class TabbedSelectionGroup extends SelectionGroup {
 		return $list;
 	}
 
-	public function FieldHolder($properties = []) {
+	public function Field($properties = []) {
 		if (!$this->config()->exclude_js) {
 			if(!$this->config()->exclude_js_libraries) {
 				Requirements::javascript(THIRDPARTY_DIR . '/jquery/jquery.js');
@@ -48,9 +67,7 @@ class TabbedSelectionGroup extends SelectionGroup {
 			Requirements::css(SS_MWM_FORMFIELDS_DIR . '/css/tabbedselectiongroup.css');
 		}
 
-		$obj = $properties ? $this->customise($properties) : $this;
-
-		return $obj->renderWith($this->getTemplates());
+		return parent::Field($properties);
 	}
 
 	public function getInitiallySelected() {
