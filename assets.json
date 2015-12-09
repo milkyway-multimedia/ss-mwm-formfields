@@ -9,6 +9,12 @@
         "bower_components/nouislider/src/jquery.nouislider.pips.css"
       ],
       "dest": "thirdparty/css/"
+    },
+    {
+      "src": [
+        "bower_components/select2/src/scss/core.scss"
+      ],
+      "dest": "thirdparty/css/select2.css"
     }
   ],
   "js"  : [
@@ -19,7 +25,9 @@
       "src": [
         "bower_components/moment/moment.js",
         "bower_components/nouislider/distribute/jquery.nouislider.all.js",
-        "bower_components/bootstrap/js/tab.js"
+        "bower_components/bootstrap/js/tab.js",
+        "bower_components/select2/dist/js/select2.full.js",
+        "bower_components/typeahead.js/dist/typeahead.bundle.js"
       ],
       "dest": "thirdparty/js/"
     }

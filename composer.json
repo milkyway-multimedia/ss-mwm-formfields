@@ -19,7 +19,8 @@
     },
     "replace":     {
         "milkyway/silverstripe-hasonecompositefield": "self.version",
-        "milkyway/silverstripe-htmleditorfield-extras": "self.version"
+        "milkyway/silverstripe-htmleditorfield-extras": "self.version",
+        "milkyway-multimedia/ss-mwm-autocomplete": "self.version"
     },
     "extra":       {
         "installer-name": "mwm-formfields"

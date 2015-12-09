@@ -53,6 +53,10 @@ class TabbedSelectionGroup extends SelectionGroup {
 		return $list;
 	}
 
+	public function FieldHolder($properties = array()) {
+		return $this->Field($properties);
+	}
+
 	public function Field($properties = []) {
 		if (!$this->config()->exclude_js) {
 			if(!$this->config()->exclude_js_libraries) {

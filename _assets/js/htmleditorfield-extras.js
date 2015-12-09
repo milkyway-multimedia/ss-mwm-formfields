@@ -8,50 +8,60 @@
             redraw:                 function () {
                 var self = this,
                     id = self.attr('id'),
-                //key = id + '--' + window.location.pathname.replace(/\W/g, ''),
-                    _old = ssTinyMceConfig,
-                    config = this.data('customTinyMceConfig') || {};
+                    key = id + '--' + window.location.pathname.replace(/\W/g, ''),
+                    //_old = ssTinyMceConfig,
+                    type = self.data("config"),
+                    customConfig = self.data("customConfig") || null,
+                    customiseConfig = function(key, val) {
+                        if(customConfig === null) {
+                            customConfig = {};
+                        }
 
-                config = $.extend({}, ssTinyMceConfig, config);
+                        customConfig[key] = val;
+                    }, buttons;
+
+                //config = $.extend({}, ssTinyMceConfig, config);
 
                 if (self.data('tinymceContentCss')) {
-                    config.old_content_css = ssTinyMceConfig.content_css;
-                    config.content_css = self.data('tinymceContentCss');
+                    customiseConfig('old_content_css', ssTinyMceConfig[type].content_css);
+                    customiseConfig('content_css', self.data('tinymceContentCss'));
                 }
 
-                if (self.hasClass('limited-with-media') && this.checkIfPluginExistsInConfig('-ssbuttons', config) && !this.checkIfButtonExistsInLimitedConfig('ssmedia', config)) {
-                    config.theme_advanced_buttons1 = config.theme_advanced_buttons1 + ',ssmedia,ssflash';
+                if (self.hasClass('limited-with-media') && this.checkIfPluginExistsInConfig('-ssbuttons', ssTinyMceConfig[type]) && !this.checkIfButtonExistsInLimitedConfig('ssmedia', ssTinyMceConfig[type])) {
+                    customiseConfig('theme_advanced_buttons1', (customConfig && customConfig.hasOwnProperty('theme_advanced_buttons1') ? customConfig.theme_advanced_buttons1 : ssTinyMceConfig[type].theme_advanced_buttons1) + ',ssmedia,ssflash');
                 }
 
-                if (self.hasClass('limited-with-links') && this.checkIfPluginExistsInConfig('-ssbuttons', config) && !this.checkIfButtonExistsInLimitedConfig('sslink', config)) {
-                    config.theme_advanced_buttons1 = config.theme_advanced_buttons1 + ',sslink,unlink';
+                if (self.hasClass('limited-with-links') && this.checkIfPluginExistsInConfig('-ssbuttons', ssTinyMceConfig[type]) && !this.checkIfButtonExistsInLimitedConfig('sslink', ssTinyMceConfig[type])) {
+                    customiseConfig('theme_advanced_buttons1', (customConfig && customConfig.hasOwnProperty('theme_advanced_buttons1') ? customConfig.theme_advanced_buttons1 : ssTinyMceConfig[type].theme_advanced_buttons1) + ',sslink,unlink');
                 }
 
                 if (self.hasClass('limited-with-source')) {
-                    if(this.checkIfButtonExistsInExtendedConfig('code', config) && !this.checkIfButtonExistsInLimitedConfig('code', config)) {
-                        config.theme_advanced_buttons1 = config.theme_advanced_buttons1 + ',code';
+                    if(this.checkIfButtonExistsInExtendedConfig('code', ssTinyMceConfig[type]) && !this.checkIfButtonExistsInLimitedConfig('code', ssTinyMceConfig[type])) {
+                        customiseConfig('theme_advanced_buttons1', (customConfig && customConfig.hasOwnProperty('theme_advanced_buttons1') ? customConfig.theme_advanced_buttons1 : ssTinyMceConfig[type].theme_advanced_buttons1) + ',code');
                     }
 
-                    if(this.checkIfButtonExistsInExtendedConfig('fullscreen', config) && !this.checkIfButtonExistsInLimitedConfig('fullscreen', config)) {
-                        config.theme_advanced_buttons1 = config.theme_advanced_buttons1 + ',fullscreen';
+                    if(this.checkIfButtonExistsInExtendedConfig('fullscreen', ssTinyMceConfig[type]) && !this.checkIfButtonExistsInLimitedConfig('fullscreen', ssTinyMceConfig[type])) {
+                        customiseConfig('theme_advanced_buttons1', (customConfig && customConfig.hasOwnProperty('theme_advanced_buttons1') ? customConfig.theme_advanced_buttons1 : ssTinyMceConfig[type].theme_advanced_buttons1) + ',fullscreen');
                     }
                 }
 
-                if (self.hasClass('limited') && this.checkIfButtonExistsInExtendedConfig('removeformat', config) && !this.checkIfButtonExistsInLimitedConfig('removeformat', config)) {
-                    config.theme_advanced_buttons1 = config.theme_advanced_buttons1 + ',removeformat';
+                if (self.hasClass('limited') && this.checkIfButtonExistsInExtendedConfig('removeformat', ssTinyMceConfig[type]) && !this.checkIfButtonExistsInLimitedConfig('removeformat', ssTinyMceConfig[type])) {
+                    customiseConfig('theme_advanced_buttons1', (customConfig && customConfig.hasOwnProperty('theme_advanced_buttons1') ? customConfig.theme_advanced_buttons1 : ssTinyMceConfig[type].theme_advanced_buttons1) + ',removeformat');
                 }
 
                 if (self.data('tinymceClasses')) {
-                    if (config.hasOwnProperty('body_class'))
-                        config.body_class = config.body_class + ' ' + self.data('tinymceClasses');
-                    else
-                        config.body_class = self.data('tinymceClasses');
+                    if (ssTinyMceConfig[type].hasOwnProperty('body_class')) {
+                        customiseConfig('body_class', ssTinyMceConfig[type].body_class + ' ' + self.data('tinymceClasses'));
+                    }
+                    else {
+                        customiseConfig('body_class', self.data('tinymceClasses'));
+                    }
                 }
 
-                var _oldSetup = config.hasOwnProperty('setup') && !config.hasOwnProperty('extrasHaveBeenSetup') ? config.setup : null;
+                var _oldSetup = ssTinyMceConfig[type].hasOwnProperty('setup') && (customConfig && !customConfig.hasOwnProperty('extrasHaveBeenSetup')) ? ssTinyMceConfig[type].setup : null;
 
-                config.extrasHaveBeenSetup = true;
-                config.setup = function (editor) {
+                customiseConfig('extrasHaveBeenSetup', true);
+                customiseConfig('extrasHaveBeenSetup', function (editor) {
                     var allowed = 0,
                         total = 0,
                         curr = 0,
@@ -157,7 +167,7 @@
                     if (_oldSetup)
                         _oldSetup(editor);
 
-                    var selector = config.hasOwnProperty('editor_selector') ? config.editor_selector : '';
+                    var selector = ssTinyMceConfig[type].hasOwnProperty('editor_selector') ? ssTinyMceConfig[type].editor_selector : '';
 
                     editor.onPostRender.add(function (ed) {
                         var $container = $('#' + ed.editorId).siblings('#' + ed.editorContainer);
@@ -169,15 +179,18 @@
                                 $container.addClass(self.attr('class').replace(selector, ''));
                         }, 10);
                     });
-                };
+                });
 
-                this.data('customTinyMceConfig', config);
-
-                ssTinyMceConfig = config;
-
-                this._super();
-
-                ssTinyMceConfig = _old;
+                if(customConfig !== null) {
+                    ssTinyMceConfig[key] = $.extend({}, ssTinyMceConfig[type], customConfig);
+                    ssTinyMceConfig[key].inheritedFrom = type;
+                    self.data("customConfig", ssTinyMceConfig[key]);
+                    self.data("config", key);
+                    return this._super();
+                }
+                else {
+                    return this._super();
+                }
             },
             getTextCountFromEditor: function (editor) {
                 if (!editor)
