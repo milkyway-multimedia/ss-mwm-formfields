@@ -1,5 +1,9 @@
 Milkyway Form Fields
-======
+====================
+
+## Still in heavy development
+Due to some limitations, this may not work the way I want it, so the API will be changing frequently until I am happy with it. Please use with caution if you must use it at all.
+
 **Milkyway Form Fields** is a set of form fields that we use across a variety of projects and didn't think we would need a separate module for each.
 
 ## Install
@@ -37,6 +41,8 @@ These are fields that use the LiteralField as a base, but are just there to make
 1. GroupedListboxField: Allows you to use a two dimensional array with ListboxField
 2. RangeSliderField: Display a slider that saves values to the database
 3. TabbedSelectionGroup: Display selection groups in tabs, or a tab dropdown (to save space)
+4. Select2Field
+5. TypeAheadField
 
 ### Extended Functionality
 1. HTMLEditorField - extras: Adds ability to limit characters on HTMLEditorFields, define more custom configuration such as buttons, iframe CSS and more.
@@ -45,7 +51,7 @@ These are fields that use the LiteralField as a base, but are just there to make
 * MIT
 
 ## Version 
-* Version 0.1 - Alpha
+* Version 0.2 (Alpha)
 
 ## Contact
 #### Milkyway Multimedia

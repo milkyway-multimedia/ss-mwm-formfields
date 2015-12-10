@@ -1,28 +1,36 @@
 {
-    "name":        "milkyway-multimedia/ss-mwm-formfields",
-    "description": "Some additional form fields to use with the Silverstripe Framework",
-    "type":        "silverstripe-module",
-    "keywords":    ["silverstripe", "forms", "form fields", "mwm"],
-    "license":     "MIT",
-    "authors":     [
-        {
-            "name":  "Mellisa Hankins",
-            "email": "mell@milkywaymultimedia.com.au"
-        }
-    ],
-    "require":     {
-        "php": ">=5.4",
-        "silverstripe/framework": "~3.1"
-    },
-    "suggest":     {
-        "milkyway-multimedia/ss-zen-forms": "Additional form field methods and extensions to make forms work with bootstrap and ajax, as well as validation constraints"
-    },
-    "replace":     {
-        "milkyway/silverstripe-hasonecompositefield": "self.version",
-        "milkyway/silverstripe-htmleditorfield-extras": "self.version",
-        "milkyway-multimedia/ss-mwm-autocomplete": "self.version"
-    },
-    "extra":       {
-        "installer-name": "mwm-formfields"
+  "name": "milkyway-multimedia/ss-mwm-formfields",
+  "description": "Some additional form fields to use with the Silverstripe Framework",
+  "type": "silverstripe-module",
+  "keywords": [
+    "silverstripe",
+    "forms",
+    "form fields",
+    "mwm"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Mellisa Hankins",
+      "email": "mell@milkywaymultimedia.com.au"
     }
+  ],
+  "require": {
+    "php": ">=5.4",
+    "silverstripe/framework": "~3.1"
+  },
+  "suggest": {
+    "milkyway-multimedia/ss-zen-forms": "Additional form field methods and extensions to make forms work with bootstrap and ajax, as well as validation constraints"
+  },
+  "replace": {
+    "milkyway/silverstripe-hasonecompositefield": "self.version",
+    "milkyway/silverstripe-htmleditorfield-extras": "self.version",
+    "milkyway-multimedia/ss-mwm-autocomplete": "self.version"
+  },
+  "extra": {
+    "installer-name": "mwm-formfields",
+    "branch-alias": {
+      "dev-master": "0.2.x-dev"
+    }
+  }
 }
