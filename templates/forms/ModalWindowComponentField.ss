@@ -6,8 +6,7 @@
     </div>
 <% end_if %>
 
-<div <% if $AttributesHTML %>$AttributesHTML<% else %>data-modal="true" id="$ID"
-                                                                        class="<% if $StyleClasses %>$StyleClasses<% else %>modal fade<% end_if %>"<% end_if %>>
+<div $AttributesHTML>
     <div class="modal-dialog<% if $DialogClasses %> $DialogClasses<% end_if %>">
         <div class="modal-content">
             <% if not $NoHeader %>

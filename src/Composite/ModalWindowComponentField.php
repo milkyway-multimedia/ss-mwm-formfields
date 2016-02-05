@@ -122,10 +122,10 @@ class ModalWindowComponentField extends ComponentFieldHolder {
 		if(!isset($properties['FooterFields']) && $this->footer)
 			$properties['FooterFields'] = $this->footer;
 
-		return parent::FieldHolder($properties);
+		return parent::Field($properties);
 	}
 
 	public function FieldHolder($properties = []) {
 		return $this->Field($properties);
 	}
-} 
+}

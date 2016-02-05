@@ -13,7 +13,7 @@ Add the following to your composer.json file
     "require"          : {
 		"milkyway-multimedia/ss-mwm-formfields": "dev-master"
 	}
-	
+
 ```
 
 ## Usage
@@ -22,6 +22,7 @@ Add the following to your composer.json file
 These fields work as composite fields, with the ability to group form fields into certain components
 
 1. HasOneCompositeField: Save a has one relationship as if it is part of the current form. Can also be used to completely save a different record if need be.
+1. InlineFormField: Save a form as part of another form (kind of like ajaxing it).
 2. AccordionComponentField: A composite field that acts like an accordion. Uses Twitter Bootstrap styling.
 3. ModalWindowField: A composite field that acts like a modal window, with the option to set a trigger, or to trigger automatically. Uses Twitter Bootstrap styling.
 4. PanelComponentField: A composite field that displays as a panel
@@ -47,10 +48,10 @@ These are fields that use the LiteralField as a base, but are just there to make
 ### Extended Functionality
 1. HTMLEditorField - extras: Adds ability to limit characters on HTMLEditorFields, define more custom configuration such as buttons, iframe CSS and more.
 
-## License 
+## License
 * MIT
 
-## Version 
+## Version
 * Version 0.2 (Alpha)
 
 ## Contact
