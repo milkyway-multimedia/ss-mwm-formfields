@@ -7,7 +7,7 @@
  * A composite field that saves the data received into another form
  * - An inline form
  *
- * @package dispoze.com.au
+ * @package milkyway-multimedia/ss-mwm-formfields
  * @author Mellisa Hankins <mell@milkywaymultimedia.com.au>
  */
 class InlineFormField extends CompositeField
@@ -21,10 +21,6 @@ class InlineFormField extends CompositeField
 
     public function __construct($name, $inlineForm, $actionToExecuteOnSaveInto = null)
     {
-        if ($inlineForm instanceof \Milkyway\SS\ZenForms\Contracts\Decorator) {
-            $inlineForm = $inlineForm->original();
-        }
-
         $this->name = $name;
         $this->inlineForm = $inlineForm;
         $this->actionToExecuteOnSaveInto = $actionToExecuteOnSaveInto;
@@ -40,7 +36,7 @@ class InlineFormField extends CompositeField
      */
     public function getInlineForm()
     {
-        $this->IncludeFormTag = false;
+        $this->inlineForm->IncludeFormTag = false;
         return $this->inlineForm;
     }
 
@@ -88,11 +84,15 @@ class InlineFormField extends CompositeField
         if ($funcName) {
             $this->inlineForm->setButtonClicked($funcName);
         } else {
-            if ($this->inlineForm->Record) {
-                $this->inlineForm->loadDataFrom($this->value);
-                $this->inlineForm->saveInto($this->inlineForm->Record);
-                return;
+            if($this->inlineForm->Record) {
+                $record = $this->inlineForm->Record;
             }
+
+            $this->unprependName($this->inlineForm->Fields());
+            $this->inlineForm->loadDataFrom($this->value);
+            $this->inlineForm->saveInto($record);
+
+            return;
         }
 
         if (
@@ -122,6 +122,7 @@ class InlineFormField extends CompositeField
             return;
         }
 
+        $this->unprependName($this->inlineForm->Fields());
         $this->inlineForm->loadDataFrom($this->value);
         $request = \Controller::curr()->Request;
 
@@ -130,6 +131,10 @@ class InlineFormField extends CompositeField
             // Otherwise, try a handler method on the form object.
         } elseif ($this->inlineForm->hasMethod($funcName)) {
             $this->inlineForm->$funcName($this->inlineForm->Data, $this->inlineForm, $request);
+        } elseif ($this->form && $this->form->Controller->hasMethod($funcName)) {
+            $this->form->Controller->$funcName($this->inlineForm->Data, $this->inlineForm, $request);
+        } elseif ($this->form && $this->inlineForm->hasMethod($funcName)) {
+            $this->form->$funcName($this->inlineForm->Data, $this->inlineForm, $request);
         } elseif ($field = $this->inlineForm->checkFieldsForAction($this->inlineForm->Fields(), $funcName)) {
             $field->$funcName($this->inlineForm->Data, $this->inlineForm, $request);
         }
