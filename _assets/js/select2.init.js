@@ -80,9 +80,8 @@
                         };
                     }
                     else if($this.data('local') && $this.data('local').length) {
-                        options.data = {
-                            results: $this.data('local')
-                        };
+                        $this.empty();
+                        options.data = $this.data('local');
                     }
 
                     if ($this.data('allowHtml')) {
@@ -91,11 +90,15 @@
                         };
                     }
 
+                    if (!$this.data('requireSelection')) {
+                        options.tags = true;
+                    }
+
                     if (!$this.attr('required')) {
                         options.allowClear = true;
 
-                        if (options.hasOwnProperty('data') && !this.hasEmptyItem(options.data.results)) {
-                            options.data.results.unshift(options.data.results, {
+                        if (options.hasOwnProperty('data') && !this.hasEmptyItem(options.data)) {
+                            options.data.unshift({
                                 id:   '',
                                 text: ($this.attr('placeholder') || $this.data('placeholder') || '')
                             });
@@ -110,7 +113,7 @@
                             continue;
                         }
 
-                        if(data['item'].hasOwnProperty['id'] && !data['item'].id) {
+                        if(data[item].hasOwnProperty['id'] && !data[item].id) {
                             return true;
                         }
                     }

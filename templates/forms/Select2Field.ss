@@ -1,7 +1,16 @@
 <select $AttributesHTML>
 	<% if $getAttribute('placeholder') %><option></option><% end_if %>
     <% loop $Options %>
-        <option value="$Value.XML"<% if $Selected %> selected="selected"<% end_if %><% if $Disabled %>
-                disabled="disabled"<% end_if %>><% if Title %>$Title.XML<% else %>&nbsp;<% end_if %></option>
+        <% if $Children %>
+            <optgroup label="$Title.XML">
+                <% loop $Children %>
+                    <option value="$Value.XML"<% if $Selected %> selected="selected"<% end_if %><% if $Disabled %>
+                            disabled="disabled"<% end_if %>><% if $Title %>$Title<% else %>&nbsp;<% end_if %></option>
+                <% end_loop %>
+            </optgroup>
+        <% else %>
+            <option value="$Value.XML"<% if $Selected %> selected="selected"<% end_if %><% if $Disabled %>
+                    disabled="disabled"<% end_if %>><% if $Title %>$Title<% else %>&nbsp;<% end_if %></option>
+        <% end_if %>
     <% end_loop %>
 </select>

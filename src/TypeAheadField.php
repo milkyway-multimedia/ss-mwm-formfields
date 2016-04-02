@@ -679,4 +679,4 @@ class TypeAheadField extends TextField
 	{
 		Requirements::css(SS_MWM_FORMFIELDS_DIR . '/css/typeahead.field.css');
 	}
-} 
+}

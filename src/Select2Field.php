@@ -160,13 +160,25 @@ class Select2Field extends TypeAheadField
         }
 
         return ArrayList::create(array_map(function($item) use($value) {
-            return ArrayData::create([
-                'Value' => isset($item['id']) ? $item['id'] : '',
-                'Title' => isset($item['text']) ? $item['text'] : '',
-                'Disabled' => isset($item['disabled']) ? $item['disabled'] : false,
-                'Locked' => isset($item['locked']) ? $item['locked'] : false,
-                'Selected' => is_array($value) ? isset($item['id']) && in_array($item['id'], $value) : isset($item['id']) && $item['id'] == $value,
-            ]);
+            return $this->convertToOption($item, $value);
         }, $prefetch));
+    }
+
+    protected function convertToOption($item, $value) {
+        $data = ArrayData::create([
+            'Value' => isset($item['id']) ? $item['id'] : '',
+            'Title' => isset($item['text']) ? $item['text'] : '',
+            'Disabled' => isset($item['disabled']) ? $item['disabled'] : false,
+            'Locked' => isset($item['locked']) ? $item['locked'] : false,
+            'Selected' => is_array($value) ? isset($item['id']) && in_array($item['id'], $value) : isset($item['id']) && $item['id'] == $value,
+        ]);
+
+        if(!empty($item['children'])) {
+            $data->Children = ArrayList::create(array_map(function ($item) use ($value) {
+                return $this->convertToOption($item, $value);
+            }, $item['children']));
+        }
+
+        return $data;
     }
 }
