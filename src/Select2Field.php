@@ -94,6 +94,11 @@ class Select2Field extends TypeAheadField
             ]
         );
 
+        if(isset($attrs['data-local']) && !$this->allowHTML) {
+            $this->_fetched = json_decode($attrs['data-local'], true);
+            unset($attrs['data-local']);
+        }
+
         if(isset($attrs['data-prefetch-url'])) {
             unset($attrs['data-prefetch-url']);
         }
@@ -120,13 +125,23 @@ class Select2Field extends TypeAheadField
                 unset($attrs['data-suggest-url']);
             }
 
-            if($count) {
+            if($count && isset($prefetch)) {
                 $this->_fetched = $prefetch;
             }
         }
 
         if(isset($attrs['multiple']) && $attrs['multiple'] && isset($attrs['name'])) {
             $attrs['name'] .= '[]';
+        }
+
+        if(isset($attrs['data-local'])) {
+            $value = $this->Value();
+
+            if($value instanceof DataList) {
+                $value = $value->column($this->valField);
+            }
+
+            $attrs['data-local-value'] = is_array($value) ? json_encode($value) : $value;
         }
 
         return $attrs;
@@ -147,6 +162,10 @@ class Select2Field extends TypeAheadField
     }
 
     public function Options() {
+        if($this->allowHTML) {
+            return ArrayList::create();
+        }
+
         $prefetch = $this->_fetched ?: json_decode($this->prefetch()->getBody(), true);
         $this->_fetched = $prefetch;
 

@@ -41,12 +41,20 @@
                                 $this[0].disabled = false;
                                 $this.select2(config);
 
+                                if($this.data('localValue')) {
+                                    $this.val($this.data('localValue')).trigger("change");
+                                }
+
                                 $this.removeClass('processing');
                             }
                         });
                     }
                     else {
                         $this.select2(config);
+
+                        if($this.data('localValue')) {
+                            $this.val($this.data('localValue')).trigger("change");
+                        }
                     }
 
                     return this._super();
