@@ -54,6 +54,18 @@ These are fields that use the LiteralField as a base, but are just there to make
 ## Version
 * Version 0.2 (Alpha)
 
+## Develop
+**This project relies on the mwm.buildr module.**
+This means you can develop the code with live updating and automatic building on file changes,
+simply run the command below to get this functionality.
+
+```
+gulp --dev
+```
+
+For more information about this functionality, please read:
+https://bitbucket.org/milkyway-multimedia/mwm.buildr/raw/master/README.md
+
 ## Contact
 #### Milkyway Multimedia
 * Homepage: http://milkywaymultimedia.com.au

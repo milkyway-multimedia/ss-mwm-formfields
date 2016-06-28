@@ -1,5 +1,5 @@
 {
-  "name"        : "milkyway-multimedia/ss-mwm-formfields",
+  "name"        : "mwm.ss.formfields",
   "private"     : true,
   "dependencies": {
     "nouislider"     : "~7",

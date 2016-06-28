@@ -5,14 +5,14 @@
     },
     {
       "src": [
-        "bower_components/nouislider/src/jquery.nouislider.css",
-        "bower_components/nouislider/src/jquery.nouislider.pips.css"
+        "node_modules/nouislider/src/jquery.nouislider.css",
+        "node_modules/nouislider/src/jquery.nouislider.pips.css"
       ],
       "dest": "thirdparty/css/"
     },
     {
       "src": [
-        "bower_components/select2/src/scss/core.scss"
+        "node_modules/select2/src/scss/core.scss"
       ],
       "dest": "thirdparty/css/select2.css"
     }
@@ -23,11 +23,11 @@
     },
     {
       "src": [
-        "bower_components/moment/moment.js",
-        "bower_components/nouislider/distribute/jquery.nouislider.all.js",
-        "bower_components/bootstrap/js/tab.js",
-        "bower_components/select2/dist/js/select2.full.js",
-        "bower_components/typeahead.js/dist/typeahead.bundle.js"
+        "node_modules/moment/moment.js",
+        "node_modules/nouislider/distribute/jquery.nouislider.all.js",
+        "node_modules/bootstrap/js/tab.js",
+        "node_modules/select2/dist/js/select2.full.js",
+        "node_modules/typeahead.js/dist/typeahead.bundle.js"
       ],
       "dest": "thirdparty/js/"
     }
