@@ -403,6 +403,10 @@ class TypeAheadField extends TextField
 		$results = [];
 		$noOfResults = 0;
 
+        if(is_array($q) && !empty($q['term'])) {
+            $q = $q['term'];
+        }
+
 		if ($class && $search = $this->scaffoldSearchFields($class)) {
 			$context = explode(':', reset($search));
 			$pattern = '';
